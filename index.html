@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Will You Be My Valentine? 💖</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', 'Poppins', cursive, sans-serif;
+      background: linear-gradient(135deg, #ff4d6d, #ffb3c6);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Falling hearts */
+    .heart {
+      position: absolute;
+      top: -10vh;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 20px;
+      animation: fall linear infinite;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+      }
+    }
+
+    .card {
+      background: #fff0f5;
+      border-radius: 25px;
+      padding: 40px 30px;
+      max-width: 420px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      animation: float 3s ease-in-out infinite;
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    h1 {
+      color: #e63946;
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #6d1b2d;
+      font-size: 1.1rem;
+      margin-bottom: 25px;
+    }
+
+    .hearts {
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    button {
+      border: none;
+      padding: 12px 22px;
+      font-size: 1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+    }
+
+    .yes {
+      background: #ff4d6d;
+      color: white;
+    }
+
+    .no {
+      background: #ffd6e0;
+      color: #b23a48;
+      position: absolute;
+    }
+
+    .result {
+      margin-top: 25px;
+      font-size: 1.3rem;
+      color: #c9184a;
+      display: none;
+    }
+
+    .cute-img {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Music (replace music.mp3 with your own file) -->
+  <audio autoplay loop>
+    <source src="i-think-they-call-it-love.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Falling hearts container -->
+  <div id="hearts"></div>
+
+  <div class="card">
+    <div class="cute-img">🐻🌸</div>
+    <div class="hearts">💗 💕 💖</div>
+    <h1>Hey <span id="name"></span> 💌</h1>
+    <p>I was wondering... would you make my heart extra happy and be my Valentine this year? 🥰</p>
+
+    <div class="buttons">
+      <button class="yes" onclick="sayYes()">Yes 💕</button>
+      <button class="no" id="noBtn">No 🙈</button>
+    </div>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    // 👉 CHANGE THE NAME HERE
+    const crushName = "Victoria Munjay Charles";
+    document.getElementById("name").innerText = crushName;
+
+    function sayYes() {
+      const result = document.getElementById('result');
+      result.style.display = 'block';
+      result.innerHTML = `YAYYY!! 💖🥹 ${crushName}, you just made my Valentine's Day perfect! 🌹🍫`;
+    }
+
+    // Make the NO button run away 😈
+    const noBtn = document.getElementById('noBtn');
+    noBtn.addEventListener('mouseover', () => {
+      const x = Math.random() * 250 - 125;
+      const y = Math.random() * 200 - 100;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    });
+
+    // Create falling hearts 💕
+    const heartsContainer = document.getElementById('hearts');
+    const heartEmojis = ['💖','💗','💕','❤️'];
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerText = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = Math.random() * 20 + 15 + 'px';
+      heart.style.animationDuration = Math.random() * 3 + 4 + 's';
+
+      heartsContainer.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 7000);
+    }
+
+    setInterval(createHeart, 300);
+  </script>
+</body>
+</html>
